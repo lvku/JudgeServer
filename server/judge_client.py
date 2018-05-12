@@ -139,12 +139,16 @@ class JudgeClient(object):
                 if not is_ac:
                     run_result["result"] = _judger.RESULT_WRONG_ANSWER
 
-        if self._output:
-            try:
-                with open(user_output_file, "r", encoding="utf-8") as f:
-                    run_result["output"] = f.read()
-            except Exception:
-                pass
+        try:
+            with open(user_output_file, "r", encoding="utf-8") as f:
+                run_result["output"] = f.read()
+        except Exception:
+            pass
+        try:
+            with open(in_file, "r", encoding="utf-8") as f:
+                run_result["input"] = f.read()
+        except Exception:
+            pass
 
         return run_result
 
